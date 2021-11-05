@@ -10,7 +10,6 @@ import puertos.entidades.Barco;
  * @version 1.0
  */
 public class ListaBarcos implements RepositorioBarcos {
-	
 	private List<Barco> barcos;
 
 	public ListaBarcos() {

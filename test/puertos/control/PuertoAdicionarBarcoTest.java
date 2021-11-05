@@ -11,28 +11,28 @@ import puertos.persistencia.ListaBarcos;
 class PuertoAdicionarBarcoTest {
 
 	/**
-	 * Se adicionan un velero y un carguero, con matrículas únicas
-	 * y volumen en el rango permitido
-	 * @throws BarcoException 
+	 * Adicionar un barco con datos correctos
 	 */
 	@Test
-	void testAdicionarBarcosValidos() throws BarcoException {
+	void adicionarVeleroTest() throws BarcoException {
 		Puerto puerto = new Puerto(new ListaBarcos());
-		boolean adicionVelero = puerto.adicionarBarco("Vel-001", "colombiana", 100, 'v', 8, false);
-		boolean adicionCarguero = puerto.adicionarBarco("Car-001", "peruana", 500, 'c', 15, true);
-		assertTrue(adicionVelero);
-		assertTrue(adicionCarguero);
+		
+		assertTrue(puerto.validarMatriculaUnica("123"));
+		puerto.adicionarBarco("123","colombiana", 200,'v', 10, true);	
+		assertFalse(puerto.validarMatriculaUnica("123"));
 	}
-
+	
 	/**
 	 * Se verifica que no permita adicionar un barco con matrícula repetida
 	 */
 	@Test
 	void testAdicionarBarcoRepetido() throws BarcoException {
 		Puerto puerto = new Puerto(new ListaBarcos());
-		puerto.adicionarBarco("Vel-002", "chilena", 50, 'v', 5, false);
-		boolean adicionRepetido = puerto.adicionarBarco("Vel-002", "chilena", 150, 'v', 15, false);
-		assertFalse(adicionRepetido);
+		assertTrue(puerto.validarMatriculaUnica("245"));
+		puerto.adicionarBarco("245", "peruana", 100, 'v', 5, false);
+		assertFalse(puerto.validarMatriculaUnica("245"));
+		assertThrows(Exception.class, 
+				() -> puerto.adicionarBarco("245", "peruana", 100, 'v', 5, false));
 	}
 	
 	/**
@@ -41,8 +41,10 @@ class PuertoAdicionarBarcoTest {
 	@Test
 	void testAdicionarBarcoVolumenNegativo() {
 		Puerto puerto = new Puerto(new ListaBarcos());
+		
 		assertThrows(BarcoException.class,
-				() ->  puerto.adicionarBarco("Car-002", "mexicano", -250, 'c', 25, false));
+				() ->  puerto.adicionarBarco("789", "italiano", -79, 'v', 10, true));
+		assertTrue(puerto.validarMatriculaUnica("789"));
 	}
 	
 	/**
@@ -53,6 +55,7 @@ class PuertoAdicionarBarcoTest {
 	void testAdicionarBarcoVolumenAlto() {
 		Puerto puerto = new Puerto(new ListaBarcos());
 		assertThrows(BarcoException.class,
-				() ->  puerto.adicionarBarco("Car-003", "canadiense", 1500, 'c', 30, true));
+				() ->  puerto.adicionarBarco("003", "canadiense", 1500, 'c', 30, false));
+		assertTrue(puerto.validarMatriculaUnica("003"));
 	}
 }

@@ -31,7 +31,6 @@ import javax.swing.ButtonModel;
  * @version 1.5
  */
 public class VentanaControlBarcos extends JFrame {
-	
 	private Puerto puerto;
 
 	private JPanel contentPane;
@@ -268,7 +267,7 @@ public class VentanaControlBarcos extends JFrame {
 	}
 	
 	/**
-	 * Acciones que se toman cuando se presiona el botón "crear Barco".
+	 * Acciones cuando se presiona el botón "crear Barco".
 	 * Se deben obtener los datos necesarios, enviarlos a la clase
 	 * de control y mostrar mensaje (dependiendo del resultado).
 	 */
@@ -281,15 +280,16 @@ public class VentanaControlBarcos extends JFrame {
 		int pasajeros = Integer.parseInt(campoPasajeros.getText());
 		boolean liquidos = checkLiquidos.isSelected();
 		
+		if (!validarCampoObligatorio(nacionalidad)) {
+			JOptionPane.showMessageDialog(this,
+					"Se debe ingresar algún dato en nacionalidad", 
+					"Error",JOptionPane.WARNING_MESSAGE);
+		}
+		
 		try {
-			boolean pudoAdicionar = puerto.adicionarBarco(matricula, nacionalidad, volumen, tipo, pasajeros, liquidos);
-			if (pudoAdicionar) {
-				JOptionPane.showMessageDialog(this,"Barco registrado");
-			}
-			else {
-				JOptionPane.showMessageDialog(this,"Barco no registrado. Ya existe esa matrícula",
-						"Error en registro",JOptionPane.WARNING_MESSAGE);
-			}
+			puerto.adicionarBarco(matricula, nacionalidad, 
+					volumen, tipo, pasajeros, liquidos);
+			JOptionPane.showMessageDialog(this,"Barco registrado");
 		}
 		catch (BarcoException errorRegistro) {
 			JOptionPane.showMessageDialog(this,errorRegistro.getMessage(), 
@@ -297,13 +297,20 @@ public class VentanaControlBarcos extends JFrame {
 		}
 	}
 	
+	private boolean validarCampoObligatorio(String valor) {
+		if (valor == null || valor.isBlank()) {
+			return false;
+		}
+		return true;
+	}
+	
 	/**
-	 * Acciones que se toman cuando se presiona el botón "calcular capacidad".
+	 * Acciones cuando se presiona el botón "calcular capacidad".
 	 * Se deben obtener los datos necesarios, enviarlos a la clase
 	 * de control y mostrar el valor en el campo correspondiente
 	 */
 	public void calcularCapacidad() {
 		double capacidad = puerto.calcularCapacidadTotal();
-		campoCapacidad.setText(""+capacidad);
+		campoCapacidad.setText("" + capacidad);
 	}
 }

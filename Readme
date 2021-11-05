@@ -13,7 +13,8 @@ Funcionalidad básica: en un puerto se tiene el registro de los barcos que llega
 
 *********** CAMBIOS con respecto a v3
 - Se adicionan pruebas unitarias (y algunas de integración) con JUnit. 
-	Para esto se crea un nuevo folder llamado "test" con las clases de prueba.
+	Para esto se crea un nuevo folder llamado "test" con las clases de prueba:
+	 CarguertoTest, VeleroTest, PuertoAdicionarBarcoTest, PuertoCalculcarCapacidadTest
 - Se hacen cambios en Velero y Carguero para que no retornen una capacidad negativa.
 - Se adiciona un constructor en la clase Puerto que recibe un repositorio 
   (para facilitar las pruebas, enviando, por ejemplo, la lista y no la base de datos).
@@ -36,5 +37,3 @@ No cambia la interfaz gráfica.
 *********** CAMBIOS con respecto a v1
 - Se crea una nueva excepción (BarcoException) para el manejo de los errores que tienen que ver la gestión de los barcos.
 No cambian las clases de entidad. Cambia la clase de control y la interfaz gráfica.
-
-
