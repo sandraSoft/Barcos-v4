@@ -51,8 +51,8 @@ public class Puerto {
 	 * @throws BarcoException cuando no cumple alguna de las reglas del negocio
 	 */
 	public void adicionarBarco(String matricula, String nacionalidad, 
-			double volumen, 
-			char tipo, int pasajeros, boolean liquidos) throws BarcoException {
+			double volumen, char tipo, int pasajeros, boolean liquidos)
+					throws BarcoException {
 		
 		if (!validarMatriculaUnica(matricula)) {
 			throw new BarcoException("No se puede guardar: "

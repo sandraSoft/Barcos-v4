@@ -38,7 +38,8 @@ public class BaseDatosBarcos implements RepositorioBarcos {
 	@Override
 	public List<Barco> consultarBarcos() {
 		List<Barco> barcos = new ArrayList<Barco>();
-		try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {			
+		try 
+		(Connection conexion = DriverManager.getConnection(cadenaConexion)) {			
 			String consultaSQL = "Select matricula,nacionalidad,"
 					+ "volumen,pasajeros,liquidos,tipo "
 					+ "from Barcos ";
@@ -54,23 +55,27 @@ public class BaseDatosBarcos implements RepositorioBarcos {
 					boolean liquidos = resultadoConsulta.getBoolean("liquidos");
 					String tipo = resultadoConsulta.getString("tipo");
 					if (tipo.equalsIgnoreCase("velero")) {
-						barco = new Velero (matricula, nacionalidad,volumen, pasajeros);
+						barco = new Velero (matricula, nacionalidad,
+								volumen, pasajeros);
 					}
 					else if (tipo.equalsIgnoreCase("carguero")) {
-						barco = new Carguero (matricula, nacionalidad,volumen, liquidos);
+						barco = new Carguero (matricula, nacionalidad,
+								volumen, liquidos);
 					}
 					barcos.add(barco);
 				}
 			}
 		} catch (SQLException e) {
-			System.err.println("Error con la base de datos en consultarBarcos: \n" + e);
+			System.err.println("Error con la base de datos"
+					+ " en consultarBarcos: \n" + e);
 		}
 		return barcos;
 	}
 
 	@Override
 	public boolean adicionarBarco(Barco barco) {
-		try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
+		try 
+		(Connection conexion = DriverManager.getConnection(cadenaConexion)) {
 			String tipo = "carguero";
 			if (barco instanceof Velero) {
 				tipo = "velero";
@@ -93,14 +98,16 @@ public class BaseDatosBarcos implements RepositorioBarcos {
 			int cantidadInserciones = sentencia.executeUpdate(sentenciaSQL);
 			return (cantidadInserciones > 0);
 		} catch (SQLException e) {
-			System.err.println("Error con la base de datos en adicionarBarco: \n" + e);
+			System.err.println("Error con la base de datos"
+					+ " en adicionarBarco: \n" + e);
 		} 
 		return false;
 	}
 
 	@Override
 	public Barco buscarBarco(String matricula) {
-		try (Connection conexion = DriverManager.getConnection(cadenaConexion)) {
+		try 
+		(Connection conexion = DriverManager.getConnection(cadenaConexion)) {
 			String consultaSQL = "Select matricula,nacionalidad,"
 					+ "volumen,pasajeros,liquidos,tipo " + " from barcos "
 					+ " where matricula = ?";
@@ -115,15 +122,18 @@ public class BaseDatosBarcos implements RepositorioBarcos {
 				boolean liquidos = datosBarco.getBoolean("liquidos");
 				String tipo = datosBarco.getString("tipo");
 				if (tipo.equalsIgnoreCase("velero")) {
-					barco = new Velero (matricula, nacionalidad,volumen, pasajeros);
+					barco = new Velero (matricula, nacionalidad,
+							volumen, pasajeros);
 				}
 				else if (tipo.equalsIgnoreCase("carguero")) {
-					barco = new Carguero (matricula, nacionalidad,volumen, liquidos);
+					barco = new Carguero (matricula, nacionalidad,
+							volumen, liquidos);
 				}
 				return barco;
 			}
 		} catch (SQLException e) {
-			System.err.println("Error con la base de datos en buscarBarco: \n" + e);
+			System.err.println("Error con la base de datos "
+					+ "en buscarBarco: \n" + e);
 		} 
 		return null;
 	}
