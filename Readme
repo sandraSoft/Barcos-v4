@@ -14,21 +14,26 @@ Funcionalidad básica: en un puerto se tiene el registro de los barcos que llega
 *********** CAMBIOS con respecto a v3
 - Se adicionan pruebas unitarias (y algunas de integración) con JUnit. 
 	Para esto se crea un nuevo folder llamado "test" con las clases de prueba:
-	 CarguertoTest, VeleroTest, PuertoAdicionarBarcoTest, PuertoCalculcarCapacidadTest
+	 CarguertoTest, VeleroTest (para las clases de entidad, calcularCapacidad) 
+	 PuertoAdicionarBarcoTest, PuertoCalcularCapacidadTest
+	  (para los métodos respectivos en la clase Puerto)
 - Se hacen cambios en Velero y Carguero para que no retornen una capacidad negativa.
 - Se adiciona un constructor en la clase Puerto que recibe un repositorio 
   (para facilitar las pruebas, enviando, por ejemplo, la lista y no la base de datos).
 
 *********** CAMBIOS con respecto a v2
-- Se adiciona una interfaz que ofrece los servicios para manejar la persistencia, y dos clases que la implementan.
+- Se adiciona una interfaz que ofrece los servicios para manejar la persistencia, 
+  y dos clases que la implementan.
 Se crea un nuevo paquete para esta interfaz y las clases:
   Una para "simular" la persistencia con una lista en memoria
   Una para acceso a base de datos (en este caso, SQLite)
-Cambian las clases de entidad porque se adicionan algunos métodos get que no tenían.
+Cambian las clases de entidad porque se adicionan algunos métodos get 
+ (necesarios para trabajar con la base de datos).
 Cambia la clase de control (para usar la interfaz).
 No cambia la interfaz gráfica.
 - Se adicionan como recursos adicionales para que funcione la base de datos:
-  El driver de conexión a SQLite. Se descarga el jar de: https://repo1.maven.org/maven2/org/xerial/sqlite-jdbc/
+  El driver de conexión a SQLite. Se descarga el jar de: 
+  https://repo1.maven.org/maven2/org/xerial/sqlite-jdbc/
   (la versión usada es la 3.34.0)
   La base de datos, llamada "barcos.db", tiene la tabla "Barcos":
    CREATE TABLE Barcos (matricula varchar(50) primary key, nacionalidad varchar(50),
