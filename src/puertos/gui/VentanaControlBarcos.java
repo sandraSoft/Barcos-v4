@@ -1,28 +1,28 @@
 package puertos.gui;
 
 import java.awt.EventQueue;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.ButtonModel;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JSeparator;
+import javax.swing.JTextField;
+import javax.swing.WindowConstants;
 import javax.swing.border.EmptyBorder;
 
 import puertos.control.BarcoException;
-import puertos.control.Puerto;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.WindowConstants;
-import javax.swing.JButton;
-import javax.swing.JSeparator;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JRadioButton;
-import javax.swing.JCheckBox;
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
+import puertos.control.ControlPuerto;
 
 /**
  * Interfaz gráfica sencilla que permite hacer algunas operaciones
@@ -31,7 +31,8 @@ import javax.swing.ButtonModel;
  * @version 1.5
  */
 public class VentanaControlBarcos extends JFrame {
-	private Puerto puerto;
+	
+	private ControlPuerto puerto;
 
 	private JPanel contentPane;
 	private JTextField campoNacionalidad;
@@ -63,7 +64,7 @@ public class VentanaControlBarcos extends JFrame {
 	 */
 	public VentanaControlBarcos() {
 		
-		puerto = new Puerto();
+		puerto = new ControlPuerto();
 		
 		setTitle("Control Barcos");
 		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -267,7 +268,7 @@ public class VentanaControlBarcos extends JFrame {
 	}
 	
 	/**
-	 * Acciones cuando se presiona el botón "crear Barco".
+	 * Acciones que se toman cuando se presiona el botón "crear Barco".
 	 * Se deben obtener los datos necesarios, enviarlos a la clase
 	 * de control y mostrar mensaje (dependiendo del resultado).
 	 */
@@ -287,8 +288,7 @@ public class VentanaControlBarcos extends JFrame {
 		}
 		
 		try {
-			puerto.adicionarBarco(matricula, nacionalidad, 
-					volumen, tipo, pasajeros, liquidos);
+			puerto.adicionarBarco(matricula, nacionalidad, volumen, tipo, pasajeros, liquidos);
 			JOptionPane.showMessageDialog(this,"Barco registrado");
 		}
 		catch (BarcoException errorRegistro) {
@@ -305,12 +305,12 @@ public class VentanaControlBarcos extends JFrame {
 	}
 	
 	/**
-	 * Acciones cuando se presiona el botón "calcular capacidad".
+	 * Acciones que se toman cuando se presiona el botón "calcular capacidad".
 	 * Se deben obtener los datos necesarios, enviarlos a la clase
 	 * de control y mostrar el valor en el campo correspondiente
 	 */
 	public void calcularCapacidad() {
 		double capacidad = puerto.calcularCapacidadTotal();
-		campoCapacidad.setText("" + capacidad);
+		campoCapacidad.setText(""+capacidad);
 	}
 }

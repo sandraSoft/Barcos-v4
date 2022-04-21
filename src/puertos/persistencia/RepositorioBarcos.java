@@ -7,6 +7,7 @@ import puertos.entidades.Barco;
 /**
  * Servicios relacionados con la gestión de los datos de los barcos
  * en un repositorio (consultar, adicionar, buscar).
+ * 
  * @version 1.0
  */
 public interface RepositorioBarcos {
