@@ -17,7 +17,7 @@ import puertos.persistencia.RepositorioBarcos;
 public class ControlPuerto {
 
 	private RepositorioBarcos repositorio;
-	private final double VOLUMEN_MAXIMO = 1000;
+	final double VOLUMEN_MAXIMO = 1000;
 
 	public ControlPuerto() {
 		repositorio = new ListaBarcos();

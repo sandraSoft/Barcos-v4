@@ -12,13 +12,14 @@ class ControlAdicionarBarcoTest {
 
 	/**
 	 * Adicionar un barco con datos correctos
+	 * @throws BarcoException 
 	 */
 	@Test
 	void adicionarVeleroTest() throws BarcoException {
 		ControlPuerto control = new ControlPuerto(new ListaBarcos());
 		
 		assertFalse(control.existeMatricula("123"));
-		control.adicionarBarco("123","colombiana", 200,'v', 10, true);	
+		control.adicionarBarco("123","colombiana", 200,'v', 10, true);
 		assertTrue(control.existeMatricula("123"));
 	}
 	
@@ -54,8 +55,9 @@ class ControlAdicionarBarcoTest {
 	@Test
 	void testAdicionarBarcoVolumenAlto() {
 		ControlPuerto control = new ControlPuerto(new ListaBarcos());
+		double volumen = control.VOLUMEN_MAXIMO + 500;
 		assertThrows(BarcoException.class,
-				() ->  control.adicionarBarco("003", "canadiense", 1500, 'c', 30, false));
+				() ->  control.adicionarBarco("003", "canadiense", volumen, 'c', 30, false));
 		assertFalse(control.existeMatricula("003"));
 	}
 }
