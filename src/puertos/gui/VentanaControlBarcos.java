@@ -285,6 +285,7 @@ public class VentanaControlBarcos extends JFrame {
 			JOptionPane.showMessageDialog(this,
 					"Se debe ingresar algún dato en nacionalidad", 
 					"Error",JOptionPane.WARNING_MESSAGE);
+			return;
 		}
 		
 		try {
